@@ -182,6 +182,12 @@ class EventsController extends BaseController
      */
 
     public function getFutureEventsWithWorkshops() {
-        throw new \Exception('implement in coding task 2');
+        try {
+            $res = Event::with('workshops')->whereIn('events.name', ['Laravel convention 2021', 'React convention 2021'])->get();
+            return json_encode($res->toArray());
+        } catch (\Throwable $th) {
+            dd($th->__toString());
+            throw $th;
+        }
     }
 }
